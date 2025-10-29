@@ -43,11 +43,22 @@ let fetchCategories = async (url) => {
         }
 
         let text = await response.text(); 
-
+        const parser = new DOMParser(); 
+        const data = parser.parseFromString(text,"application/xml");
+        
+        return {
+            success: true,
+            body: data
+        }
     } catch(error){
+
+        return{
+            success: false,
+            body: error.message
+        }
 
     }
 
 }
 
-export { fetchProducts }
+export { fetchCategories, fetchProducts }

@@ -1,4 +1,4 @@
-import { fetchProducts } from "./functions.js";
+import { fetchProducts, fetchCategories } from "./functions.js";
 "use strict"; 
 
 const showToast = () => {
@@ -66,6 +66,29 @@ let renderProducts = () =>{
         }
     })
 
+}
+
+let renderCategories = async () => {
+
+    try {
+
+        const result = await fetchCategories('https://data-dawm.github.io/datum/reseller/categories.xml'); 
+
+        if (result.success){
+            let container = document.getElementById("categories"); 
+            container.innnerHTML = `<option selected disabled>Seleccione una categoría</option>`;
+            let categoriesXML = result.body; 
+            let categories = document.getElementsByTagName("category"); 
+
+            for(let category of categories){
+                
+            }
+        }
+
+        
+    } catch(error){
+
+    }
 }
 
 (() => {
