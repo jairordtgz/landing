@@ -86,7 +86,7 @@ let renderProducts = () =>{
 }
 
 /**
- * Obtiene la lista de categorías desde un archivo XML y las renderiza en un elemento <select> con id "categories".
+ * Obtiene la lista aaaa de categorías desde un archivo XML y las renderiza en un elemento <select> con id "categories".
  *
  * @async
  * @function renderCategories
