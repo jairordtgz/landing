@@ -1,5 +1,12 @@
-import { fetchProducts } from "./functions.js";
+import { fetchProducts, fetchCategories } from "./functions.js";
 "use strict"; 
+
+/**
+ * Muestra un toast (notificación) en pantalla si el elemento correspondiente existe en el DOM.
+ *
+ * @function showToast
+ * @returns {void}
+ */
 
 const showToast = () => {
     const toast = document.getElementById("toast-interactive");
@@ -7,6 +14,13 @@ const showToast = () => {
         toast.classList.add("md:block");
     }
 };
+
+/**
+ * Asocia un evento de clic al elemento con id "demo" para abrir un video de YouTube.
+ *
+ * @function showVideo
+ * @returns {void}
+ */
 
 const showVideo = () => {
     const demo = document.getElementById("demo");
@@ -16,6 +30,14 @@ const showVideo = () => {
         });
     }
 };
+
+/**
+ * Obtiene los productos desde una API y los renderiza en el contenedor con id "products-container".
+ *
+ * @async
+ * @function renderProducts
+ * @returns {Promise<void>}
+ */
 
 let renderProducts = () =>{
     fetchProducts('https://data-dawm.github.io/datum/reseller/products.json').then(result => {
@@ -57,19 +79,53 @@ let renderProducts = () =>{
                 
             });
 
-            
-
-
-
-
-
         }
     })
 
+}
+
+/**
+ * Obtiene la lista de categorías desde un archivo XML y las renderiza en un elemento <select> con id "categories".
+ *
+ * @async
+ * @function renderCategories
+ * @returns {Promise<void>}
+ */
+
+let renderCategories = async () => {
+
+    try {
+
+        const result = await fetchCategories('https://data-dawm.github.io/datum/reseller/categories.xml'); 
+
+        if (result.success){
+            let container = document.getElementById("categories"); 
+            container.innerHTML = `<option selected disabled>Seleccione una categoría</option>`;
+            let categoriesXML = result.body; 
+            let categories = categoriesXML.getElementsByTagName("category"); 
+
+            for(let category of categories){
+                let categoryHTML = `<option value="[ID]">[NAME]</option>`;
+                let id = category.getElementsByTagName("id")[0].textContent; 
+                let name = category.getElementsByTagName("name")[0].textContent;
+
+                categoryHTML = categoryHTML.replace("[ID]",id);
+                categoryHTML = categoryHTML.replace("[NAME]",name); 
+
+                container.innerHTML += categoryHTML; 
+
+            }
+        }
+        
+    } catch(error){
+        alert(`No se pudo cargar las categorias ${error.message}`); 
+
+    }
 }
 
 (() => {
     showToast();
     showVideo(); 
     renderProducts(); 
+    renderCategories();
 })();
