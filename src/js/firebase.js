@@ -13,7 +13,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig); 
 const database = getDatabase(app); 
 
-const saveVote = (productId) => {
+const saveVotes = (productId) => {
     const votesRef = ref(database,'votes'); 
     const newVoteRef = push(votesRef); 
 
@@ -39,4 +39,4 @@ const saveVote = (productId) => {
 
 }
 
-export {saveVote}
+export {saveVotes}
