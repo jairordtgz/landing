@@ -1,5 +1,6 @@
 import { fetchProducts, fetchCategories } from "./functions.js";
 "use strict"; 
+import {saveVotes} from "./firebase.js"; 
 
 /**
  * Muestra un toast (notificación) en pantalla si el elemento correspondiente existe en el DOM.
@@ -85,7 +86,7 @@ let renderProducts = () =>{
 }
 
 /**
- * Obtiene la lista de categorías desde un archivo XML y las renderiza en un elemento <select> con id "categories".
+ * Obtiene la lista aaaa de categorías desde un archivo XML y las renderiza en un elemento <select> con id "categories".
  *
  * @async
  * @function renderCategories
