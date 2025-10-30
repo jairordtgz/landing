@@ -123,9 +123,30 @@ let renderCategories = async () => {
     }
 }
 
+let enableForm = () => {
+    const form = document.getElementById("form_voting"); 
+    if(form){
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            const productId = document.getElementById("select_product").value; 
+
+            saveVotes(productId).then(response => {
+                if(response.status){
+                    alert(response.message); 
+                } else {
+                    alert(response.message); 
+
+                }
+            }); 
+        }); 
+    }
+}
+
 (() => {
     showToast();
     showVideo(); 
     renderProducts(); 
     renderCategories();
+    enableForm(); 
 })();
